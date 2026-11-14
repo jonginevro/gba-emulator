@@ -24,7 +24,8 @@ for rom in $ROMS/*.gba; do
 	if [ "$r12" = "00000000" ]; then
 		echo "pass  $name"
 	else
-		echo "FAIL  $name (test $((16#$r12)))"
+		num=$(printf '%d' "0x$r12" 2>/dev/null || echo "0x$r12")
+		echo "FAIL  $name (test $num)"
 		rc=1
 	fi
 done

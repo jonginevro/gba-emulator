@@ -3,6 +3,10 @@
 #include <stdlib.h>
 #include "gba.h"
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 /* Minimal stand-in for the real BIOS: just the interrupt dispatcher that games
    expect at 0x18, which calls the handler pointer kept at 0x03FFFFFC. */
 void bios_init_stub(void)

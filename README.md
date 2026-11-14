@@ -1,4 +1,4 @@
-# gba-emulator
+# GBA Emulator
 
 A Game Boy Advance emulator written in C, using SDL2 for video, audio and input.
 

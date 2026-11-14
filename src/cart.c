@@ -115,8 +115,12 @@ void cart_load_battery(void)
 	FILE *f = fopen(save_path, "rb");
 	if (!f) return;
 
-	fread(save_data, 1, save_size ? save_size : sizeof save_data, f);
+	size_t want = save_size ? save_size : sizeof save_data;
+	size_t got = fread(save_data, 1, want, f);
 	fclose(f);
+
+	/* a short file is fine, the remainder stays erased */
+	(void)got;
 	save_dirty = false;
 }
 
@@ -127,9 +131,11 @@ void cart_save_battery(void)
 	FILE *f = fopen(save_path, "wb");
 	if (!f) return;
 
-	fwrite(save_data, 1, save_size, f);
-	fclose(f);
-	save_dirty = false;
+	bool ok = fwrite(save_data, 1, save_size, f) == save_size;
+	if (fclose(f) != 0) ok = false;
+
+	if (ok) save_dirty = false;
+	else fprintf(stderr, "warning: could not write %s\n", save_path);
 }
 
 /* ---- sram / flash access ---- */
