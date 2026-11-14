@@ -114,7 +114,11 @@ static void arm_data(u32 op)
 		setf(FLAG_C, carry);
 	}
 
-	if (!store) return;
+	if (!store) {
+		/* a comparison with S set and Rd=15 restores CPSR from SPSR instead */
+		if (s && rd == 15 && cpu.bank != BANK_USR) write_cpsr(cpu.spsr);
+		return;
+	}
 
 	cpu.r[rd] = res;
 

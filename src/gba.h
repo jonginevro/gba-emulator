@@ -150,6 +150,7 @@ void irq_raise(u16 flag);
 /* ---- PPU ---- */
 
 extern u16 framebuffer[SCREEN_W * SCREEN_H];
+extern bool ppu_frame_done;
 
 void ppu_reset(void);
 void ppu_run(int cycles);
@@ -201,6 +202,7 @@ void apu_write8(u32 addr, u8 v);
 void apu_fifo_write(int fifo, u32 value, int width);
 int  apu_read_samples(s16 *out, int frames);
 void apu_timer_overflow(int timer_id);
+u8   apu_read_wave(u32 addr);
 
 /* ---- Cartridge ---- */
 

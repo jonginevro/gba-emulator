@@ -62,6 +62,9 @@ static u16 io_read_reg(u32 addr)
 	switch (addr) {
 	case REG_VCOUNT: return ppu_vcount();
 	case REG_KEYINPUT: return keys_state;
+	case 0x090: case 0x092: case 0x094: case 0x096:
+	case 0x098: case 0x09A: case 0x09C: case 0x09E:
+		return (u16)(apu_read_wave(addr) | (apu_read_wave(addr + 1) << 8));
 	case 0x100: case 0x104: case 0x108: case 0x10C:
 		return timer_read_counter((addr - 0x100) >> 2);
 	}
@@ -143,6 +146,7 @@ u8 bus_read8(u32 addr)
 
 u16 bus_read16(u32 addr)
 {
+	u32 raw = addr;
 	addr &= ~1u;
 	bus_cycles += access_cycles(addr, false);
 
@@ -162,7 +166,7 @@ u16 bus_read16(u32 addr)
 		return off + 1 < rom_size ? *(u16 *)&rom[off] : (u16)(off >> 1);
 	}
 	case 0x0E: case 0x0F: {
-		u8 b = cart_read_sram(addr);
+		u8 b = cart_read_sram(raw);
 		return (u16)(b | (b << 8));
 	}
 	}
@@ -171,6 +175,7 @@ u16 bus_read16(u32 addr)
 
 u32 bus_read32(u32 addr)
 {
+	u32 raw = addr;
 	addr &= ~3u;
 	bus_cycles += access_cycles(addr, true);
 
@@ -189,7 +194,7 @@ u32 bus_read32(u32 addr)
 		return ((off >> 1) & 0xFFFF) | ((((off + 2) >> 1) & 0xFFFF) << 16);
 	}
 	case 0x0E: case 0x0F: {
-		u8 b = cart_read_sram(addr);
+		u8 b = cart_read_sram(raw);
 		u32 w = b | (b << 8);
 		return w | (w << 16);
 	}
@@ -244,6 +249,7 @@ void bus_write8(u32 addr, u8 v)
 
 void bus_write16(u32 addr, u16 v)
 {
+	u32 raw = addr;
 	addr &= ~1u;
 	bus_cycles += access_cycles(addr, false);
 
@@ -257,12 +263,14 @@ void bus_write16(u32 addr, u16 v)
 	case 0x0D:
 		if (cart_is_eeprom_addr(addr)) { cart_write_eeprom(v, 0); return; }
 		return;
-	case 0x0E: case 0x0F: cart_write_sram(addr, (u8)(v >> ((addr & 1) * 8))); return;
+	/* the save bus is 8 bits wide, so only the byte matching the address lands */
+	case 0x0E: case 0x0F: cart_write_sram(raw, (u8)(v >> ((raw & 1) * 8))); return;
 	}
 }
 
 void bus_write32(u32 addr, u32 v)
 {
+	u32 raw = addr;
 	addr &= ~3u;
 	bus_cycles += access_cycles(addr, true);
 
@@ -278,7 +286,7 @@ void bus_write32(u32 addr, u32 v)
 	case 0x05: *(u32 *)&pram[addr & 0x3FC] = v; return;
 	case 0x06: *(u32 *)&vram[vram_offset(addr)] = v; return;
 	case 0x07: *(u32 *)&oam[addr & 0x3FC] = v; return;
-	case 0x0E: case 0x0F: cart_write_sram(addr, (u8)v); return;
+	case 0x0E: case 0x0F: cart_write_sram(raw, (u8)(v >> ((raw & 3) * 8))); return;
 	}
 }
 
