@@ -2,9 +2,23 @@
 
 A Game Boy Advance emulator written in C, using SDL2 for video, audio and input.
 
-It runs commercial and homebrew games at full speed with sound. The CPU is a plain
-interpreter — no recompiler — which is fast enough that a frame costs well under a
-millisecond on a modern machine.
+It runs commercial and homebrew games at full speed with sound. The CPU is a plain interpreter (no recompiler) which is fast enough that a frame costs well under a millisecond on a modern machine.
+
+## Screenshots
+
+| | |
+| --- | --- |
+| ![A Link to the Past](screenshots/zelda.png) | ![Four Swords](screenshots/four-swords.png) |
+
+Homebrew:
+
+| | | |
+| --- | --- | --- |
+| ![Celeste Classic](screenshots/celeste.png) | ![Crowfield](screenshots/crowfield.png) | ![Everything Counts](screenshots/everything-counts.png) |
+
+Homebrew shown above: [Celeste Classic](https://github.com/JeffRuLz/Celeste-Classic-GBA),
+[Crowfield](https://github.com/capnseaaa/Crowfield) and
+[Everything Counts](https://github.com/Godless-1/everything-counts).
 
 ## Building
 
@@ -58,11 +72,7 @@ Battery saves are written next to the ROM as `.sav`, every few seconds and on ex
 
 ## BIOS
 
-No BIOS is included — Nintendo's is copyrighted. By default the emulator uses a
-built-in replacement: the ~40 BIOS calls games actually use are implemented directly,
-along with a small interrupt dispatcher. That is enough for the large majority of
-games. If a game reads BIOS memory directly or depends on exact BIOS timing, pass
-your own dump with `--bios`.
+No BIOS is included. By default the emulator uses a built-in replacement: the ~40 BIOS calls games actually use are implemented directly, along with a small interrupt dispatcher. That is enough for the large majority of games. If a game reads BIOS memory directly or depends on exact BIOS timing, pass your own dump with `--bios`.
 
 ROMs are not included either. Use your own.
 
@@ -70,8 +80,7 @@ ROMs are not included either. Use your own.
 
 - ARM7TDMI, both ARM and THUMB instruction sets, all seven processor modes
 - Full memory map with mirroring, wait states and the 8-bit save bus
-- All six video modes: text and affine backgrounds, both bitmap layouts, 128 sprites
-  with affine transforms, windows, alpha blending, brightness effects, mosaic
+- All six video modes: text and affine backgrounds, both bitmap layouts, 128 sprites with affine transforms, windows, alpha blending, brightness effects, mosaic
 - Four DMA channels including the sound FIFOs and HBlank/VBlank timing
 - Four timers with prescalers, cascading and interrupts
 - Four PSG channels plus both DirectSound FIFO channels
@@ -83,11 +92,6 @@ ROMs are not included either. Use your own.
   is not modelled, so a handful of timing-sensitive games may be off.
 - No link cable, no RTC, no save states.
 - Sprite mosaic is not applied (background mosaic is).
-
-## Tests
-
-`tests/run.sh` downloads [jsmolka's gba-suite](https://github.com/jsmolka/gba-suite)
-and runs it headless. The ARM, THUMB, memory and save suites pass.
 
 ## References
 
