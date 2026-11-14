@@ -1,0 +1,10 @@
+build/
+*.o
+*.a
+*.gba
+*.bin
+*.sav
+*.agb
+gba_bios.bin
+.DS_Store
+compile_commands.json
