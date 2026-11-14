@@ -316,7 +316,7 @@ void arm_exec(u32 op)
 
 	if ((op & 0x0FFFFFF0) == 0x012FFF10) { arm_bx(op); return; }
 	if ((op & 0x0E000000) == 0x0A000000) { arm_branch(op); return; }
-	if ((op & 0x0F000000) == 0x0F000000) { cpu_swi(op & 0xFFFFFF); return; }
+	if ((op & 0x0F000000) == 0x0F000000) { cpu_swi((op >> 16) & 0xFF); return; }
 	if ((op & 0x0C000000) == 0x04000000) { arm_sdt(op); return; }
 	if ((op & 0x0E000000) == 0x08000000) { arm_block(op); return; }
 	if ((op & 0x0FB00FF0) == 0x01000090) { arm_swp(op); return; }
