@@ -1,6 +1,6 @@
 # Simple build: make -j8
 CC      ?= cc
-CFLAGS  ?= -std=c11 -O2 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare
+CFLAGS  ?= -std=c11 -O2 -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -fno-common
 SDL_CFLAGS := $(shell sdl2-config --cflags)
 SDL_LIBS   := $(shell sdl2-config --libs)
 SRC := $(wildcard src/*.c)

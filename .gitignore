@@ -8,3 +8,4 @@ build/
 gba_bios.bin
 .DS_Store
 compile_commands.json
+/gba
