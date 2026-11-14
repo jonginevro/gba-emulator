@@ -8,8 +8,8 @@ It runs commercial and homebrew games at full speed with sound. The CPU is a pla
 
 | | |
 | --- | --- |
-| ![A Link to the Past](screenshots/alttp-title.png) | ![Hyrule](screenshots/hyrule-map.png) |
-| ![Four Swords](screenshots/four-swords.png) | ![Hyrule Castle](screenshots/castle.png) |
+| ![A Link to the Past](screenshots/alttp-title.png) | ![Mario Advance 4](screenshots/mario-advance-4.png) |
+| ![Pokemon Emerald](screenshots/pokemon-emerald.png) | ![Hyrule](screenshots/hyrule-map.png) |
 
 ## Building
 
