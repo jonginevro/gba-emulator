@@ -8,17 +8,8 @@ It runs commercial and homebrew games at full speed with sound. The CPU is a pla
 
 | | |
 | --- | --- |
-| ![A Link to the Past](screenshots/zelda.png) | ![Four Swords](screenshots/four-swords.png) |
-
-Homebrew:
-
-| | | |
-| --- | --- | --- |
-| ![Celeste Classic](screenshots/celeste.png) | ![Crowfield](screenshots/crowfield.png) | ![Everything Counts](screenshots/everything-counts.png) |
-
-Homebrew shown above: [Celeste Classic](https://github.com/JeffRuLz/Celeste-Classic-GBA),
-[Crowfield](https://github.com/capnseaaa/Crowfield) and
-[Everything Counts](https://github.com/Godless-1/everything-counts).
+| ![A Link to the Past](screenshots/alttp-title.png) | ![Hyrule](screenshots/hyrule-map.png) |
+| ![Four Swords](screenshots/four-swords.png) | ![Hyrule Castle](screenshots/castle.png) |
 
 ## Building
 
